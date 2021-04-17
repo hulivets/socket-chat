@@ -1,0 +1,9 @@
+@import '../../assets/styles/colors.scss';
+
+body {
+    background-color: $bg-main_dark;
+}
+
+body, html, #root {
+    height: 100%;
+}
