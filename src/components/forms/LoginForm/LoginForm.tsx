@@ -1,15 +1,19 @@
 import React, { ReactElement, useState } from 'react';
 import TextInput from '../../ui-kit/TextInput';
 import Button from '../../ui-kit/Button';
+import useLogin from '../../../hooks/useLogin';
 
 import './LoginForm.scss';
 
 const LoginForm = (): ReactElement => {
     const [userData, setUserData] = useState<{ [userName: string]: string }>({ userName: '' });
+    const { login } = useLogin();
 
     const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>): void => {
         e.preventDefault();
-        if (userData.userMessage.trim()) {
+
+        if (userData.userName.trim()) {
+            login();
             setUserData({ userName: '' });
         }
     };

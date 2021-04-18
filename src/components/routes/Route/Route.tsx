@@ -5,7 +5,6 @@ import MainLayout from '../../layouts/MainLayout';
 const RouteWrapper = (props: any) => {
     const {
         component: Component,
-        shouldCheckLogin,
         ...rest
     } = props;
 
