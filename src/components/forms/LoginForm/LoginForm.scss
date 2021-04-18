@@ -1,0 +1,11 @@
+.login-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    &__form {
+        .login-form__field-wrapper {
+            margin: 15px 0;
+        }
+    }
+}

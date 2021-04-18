@@ -6,17 +6,11 @@ interface ITextInputProps {
     name: string;
     value: string;
     placeholder: string;
-    onChange: (value: string) => void | null;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void | null;
 }
 
 const TextInput = (props: ITextInputProps): ReactElement=> {
     const { name, value, placeholder, onChange } = props;
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (onChange) {
-            onChange(e.target?.value);
-        }
-    }
 
     return (
         <div className="text-input">
@@ -25,7 +19,7 @@ const TextInput = (props: ITextInputProps): ReactElement=> {
                 className="input"
                 value={value}
                 placeholder={placeholder}
-                onChange={handleChange}
+                onChange={onChange}
             />
         </div>
     )

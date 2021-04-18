@@ -3,9 +3,9 @@ import React, { ReactElement } from 'react';
 import './Button.scss';
 
 interface IButtonProps {
-    type: 'submit' | 'button'
-    text?: string
-    onClick: () => void | null
+    type: 'submit' | 'button';
+    text?: string;
+    onClick: (e: React.MouseEvent<HTMLButtonElement>) => void | null;
 }
 
 const Button = (props: IButtonProps): ReactElement => {
