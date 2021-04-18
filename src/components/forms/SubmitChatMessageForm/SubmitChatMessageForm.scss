@@ -1,0 +1,21 @@
+.chat-message-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    &__form {
+        display: flex;
+        justify-content: space-between;
+
+        .chat-message-form__field-wrapper {
+            margin: 15px 0;
+            width: 100%;
+        }
+
+        .chat-message-form__button-wrapper {
+            margin: 15px 0;
+            margin-left: 15px;
+            width: 150px;
+        }
+    }
+}

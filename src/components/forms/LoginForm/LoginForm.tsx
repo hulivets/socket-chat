@@ -9,8 +9,9 @@ const LoginForm = (): ReactElement => {
 
     const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>): void => {
         e.preventDefault();
-        setUserData({ userName: '' });
-
+        if (userData.userMessage.trim()) {
+            setUserData({ userName: '' });
+        }
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
