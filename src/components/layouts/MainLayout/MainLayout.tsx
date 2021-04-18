@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import './MainLayout.scss';
 
-const MainLayout = (props: any) => {
+const MainLayout = (props: any): ReactElement => {
     const { children } = props;
     
     return (

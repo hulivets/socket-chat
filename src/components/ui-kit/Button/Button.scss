@@ -1,0 +1,23 @@
+@import '../../../assets/styles/colors.scss';
+
+.button {
+    padding: 15px;
+    width: 100%;
+    background-color: $c_button_primary;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    color: $c_white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background .3s ease-out;
+}
+
+@media (hover: hover) {
+    .button {
+        &:hover {
+            background-color: rgba($color: $c_button_primary, $alpha: .6);
+            transition: background .3s ease-in;
+        }
+    }
+}

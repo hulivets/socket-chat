@@ -1,0 +1,21 @@
+@import '../../../assets/styles/colors.scss';
+
+.text-area {
+    width: 100%;
+
+    textarea {
+        padding: 10px 15px;
+        width: 100%;
+        height: 48px;
+        max-height: 300px;
+        background-color: $c_form_input_primary;
+        border: none;
+        resize: none;
+        outline: none;
+        font-size: 16px;
+        line-height: 24px;
+        color: #ffffff;
+        border-radius: 8px;
+
+    }
+}

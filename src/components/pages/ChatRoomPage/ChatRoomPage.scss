@@ -1,7 +1,10 @@
 @import '../../../assets/styles/colors.scss';
 
 .chat-room-page {
+    padding: 0 30px;
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     color: white;
 }

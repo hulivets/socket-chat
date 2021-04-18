@@ -1,0 +1,36 @@
+.chat-message {
+    margin-bottom: 15px;
+    display: flex;
+    width: 100%;
+
+    &__content {
+        display: flex;
+
+        .chat-message__avatar {
+            margin-right: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: green;
+            font-size: 20px;
+        }
+
+        .chat-message__user-content {
+            display: flex;
+            flex-direction: column;
+            width: 500px;
+
+            .chat-message__user-name {
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+            .chat-message__user-message {
+                margin-top: 5px;
+            }
+        }
+    }
+}
