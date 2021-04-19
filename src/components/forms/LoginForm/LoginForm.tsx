@@ -1,19 +1,21 @@
 import React, { ReactElement, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import TextInput from '../../ui-kit/TextInput';
 import Button from '../../ui-kit/Button';
-import useLogin from '../../../hooks/useLogin';
+import useWebsocket from '../../../hooks/useWebSocket';
 
 import './LoginForm.scss';
 
 const LoginForm = (): ReactElement => {
     const [userData, setUserData] = useState<{ [userName: string]: string }>({ userName: '' });
-    const { login } = useLogin();
+    const history = useHistory();
+    const { login } = useWebsocket();
 
     const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>): void => {
         e.preventDefault();
 
         if (userData.userName.trim()) {
-            login();
+            login(userData.userName.trim(), () => history.push('/chat-room'));
             setUserData({ userName: '' });
         }
     };
