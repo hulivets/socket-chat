@@ -45,6 +45,7 @@ const useWebsocket = () => {
     };
 
     const logout = (): void => {
+        dispatch({ type: 'LOG_OUT' });
         chatAPI.closeConnection();
     };
 

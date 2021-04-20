@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import TextInput from '../../ui-kit/TextInput';
 import Button from '../../ui-kit/Button';
 import useWebsocket from '../../../hooks/useWebSocket';
+import { PathNames } from  '../../../contstants/pathNames';
 
 import './LoginForm.scss';
 
@@ -15,7 +16,7 @@ const LoginForm = (): ReactElement => {
         e.preventDefault();
 
         if (userData.userName.trim()) {
-            login(userData.userName.trim(), () => history.push('/chat-room'));
+            login(userData.userName.trim(), () => history.push(PathNames.CHAT_ROOM));
             setUserData({ userName: '' });
         }
     };

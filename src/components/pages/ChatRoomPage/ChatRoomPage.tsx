@@ -10,6 +10,7 @@ import useWebsocket from '../../../hooks/useWebSocket';
 import { parseSocketMessage, createUserSentMessageData } from '../../../utils/socketUtils';
 import { SocketHandlerNames } from '../../../contstants/socketCommands';
 import { store } from '../../../store/store';
+import { PathNames } from '../../../contstants/pathNames';
 
 import './ChatRoomPage.scss';
 
@@ -46,7 +47,7 @@ const ChatRoomPage = (): ReactElement => {
     };
 
     const handleLogOut = () => {
-        history.push('/');
+        history.push(PathNames.LOGIN);
         logout();
     }
 
@@ -67,6 +68,11 @@ const ChatRoomPage = (): ReactElement => {
     };
 
     useEffect(() => {
+        if (!contextState.isLogged) {
+            history.push(PathNames.LOGIN);
+            return;
+        }
+
         sucbscribe(messagesHandler);
         return () => unsucbscribe(messagesHandler);
     });

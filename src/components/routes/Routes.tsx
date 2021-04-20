@@ -2,6 +2,7 @@ import { BrowserRouter, Redirect, Switch } from 'react-router-dom';
 import Route from './Route/Route';
 import LoginPage from '../pages/LoginPage';
 import ChatRoomPage from '../pages/ChatRoomPage';
+import { PathNames } from '../../contstants/pathNames';
 
 const Routes = () => {
     return (
@@ -9,15 +10,15 @@ const Routes = () => {
             <Switch>
                 <Route
                     exact
-                    path="/"
+                    path={PathNames.LOGIN}
                     component={LoginPage}
                 />
                 <Route
                     exact
-                    path="/chat-room"
+                    path={PathNames.CHAT_ROOM}
                     component={ChatRoomPage}
                 />
-                <Redirect to="/" />
+                <Redirect to={PathNames.LOGIN} />
             </Switch>
        </BrowserRouter>
     );
