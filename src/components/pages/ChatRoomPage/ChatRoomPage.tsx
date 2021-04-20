@@ -1,5 +1,7 @@
 import React, { ReactElement, useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
+import Header from '../../ui-kit/Header';
 import ChatMessagesList from '../../ui-kit/ChatMessagesList';
 import SubmitChatMessageForm from '../../forms/SubmitChatMessageForm';
 
@@ -15,13 +17,15 @@ const ChatRoomPage = (): ReactElement => {
     const [messagesData, setMessagesData] = useState<Array<ISocketMessage>>([]);
     const [typingData, setTypingData] = useState<Array<ISocketMessage>>([]);
     const { state: contextState } = useContext(store);
+    const history = useHistory();
  
     const {
         sucbscribe,
         unsucbscribe,
         sendMessage,
         sendTypingMessage,
-        sendStopTypingMessage
+        sendStopTypingMessage,
+        logout,
     } = useWebsocket();
 
     const handleSubmit = (message: string): void => {
@@ -40,6 +44,11 @@ const ChatRoomPage = (): ReactElement => {
     const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>): void => {
         sendStopTypingMessage(contextState.userName);
     };
+
+    const handleLogOut = () => {
+        history.push('/');
+        logout();
+    }
 
     const messagesHandler = (message: string): void => {
         const data: ISocketMessage = parseSocketMessage(message);
@@ -64,12 +73,15 @@ const ChatRoomPage = (): ReactElement => {
 
     return (
         <div className="chat-room-page">
-            <ChatMessagesList messages={messagesData} typingData={typingData}/>
-            <SubmitChatMessageForm
-                onSubmit={handleSubmit}
-                onKeyDown={handleKeyDown}
-                onKeyUp={handleKeyUp}
-            />
+            <Header onActionClick={handleLogOut} />
+            <div className="chat-room-page__content">
+                <ChatMessagesList messages={messagesData} typingData={typingData}/>
+                <SubmitChatMessageForm
+                    onSubmit={handleSubmit}
+                    onKeyDown={handleKeyDown}
+                    onKeyUp={handleKeyUp}
+                />
+            </div>
         </div>
     );
 }

@@ -44,13 +44,18 @@ const useWebsocket = () => {
         chatAPI.sendMessage(newMessage);
     };
 
+    const logout = (): void => {
+        chatAPI.closeConnection();
+    };
+
     return {
         login,
         sucbscribe,
         unsucbscribe,
         sendMessage,
         sendTypingMessage,
-        sendStopTypingMessage
+        sendStopTypingMessage,
+        logout,
     };
 };
 

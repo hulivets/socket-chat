@@ -6,6 +6,7 @@ const TIME = 20000;
 
 let socket: WebSocket;
 let subscribers = [] as Array<(message: string) => void>;
+let updateInterval: NodeJS.Timeout;
 
 const closeHandler = (): void => {
     console.log('WEB SOCKET CHANNEL CLOSED');
@@ -23,7 +24,7 @@ export const chatAPI: IChatApi = {
             socket = new WebSocket(URL);
             socket.onopen = () => {
                 resolve(socket);
-                setInterval(() => socket.send(UPDATE_COMMAND), TIME)
+                updateInterval = setInterval(() => socket.send(UPDATE_COMMAND), TIME)
                 console.log('WEB SOCKET CHANNEL CONNECTED');
             }
 
@@ -48,6 +49,7 @@ export const chatAPI: IChatApi = {
         socket?.send(message);
     },
     closeConnection():void {
+        if (updateInterval) clearInterval(updateInterval);
         socket?.removeEventListener('close', closeHandler);
         socket?.removeEventListener('message', messageHandler);
         socket?.close();
