@@ -1,11 +1,68 @@
 import React, { ReactElement } from 'react';
-import { IChatMessage } from './ChatMessage/IChatMessage';
 import ChatMessage from './ChatMessage';
+import UserActivityInfo from './UserActivityInfo';
+import { SocketHandlerNames } from '../../../contstants/socketCommands';
+import { COLORS } from '../../../contstants/colors';
+import { ISocketMessage } from '../../../interfaces/ISocketMessages';
 
 import './ChatMessagesList.scss';
+import TypingMessage from './TypingMessage';
 
-const ChatMessagesList = (props: any): ReactElement => {
-    const { messages } = props;
+interface IChatMessagesListProps {
+    messages: Array<ISocketMessage>;
+    typingData: Array<ISocketMessage>;
+};
+
+const ChatMessagesList = (props: IChatMessagesListProps): ReactElement => {
+    const { messages, typingData } = props;
+
+    const renderComponentByType = (data: ISocketMessage) => {
+        let userActivityText: string;
+
+        switch (data.type) {
+            case SocketHandlerNames.NEW_MESSAGE:
+                return renderChatMessage(data);
+            case SocketHandlerNames.USER_JOINED:
+                userActivityText = 'joined 🥳'
+                return renderUserActivityInfo(data, userActivityText);
+            case SocketHandlerNames.USER_LEFT:
+                userActivityText = 'left 🤥'
+                return renderUserActivityInfo(data, userActivityText);
+            case SocketHandlerNames.LOGIN:
+                return renderUserActivityInfo(data);
+            default:
+                return null;
+        }
+    };
+
+    const getUserNameColor = (userName: string): string => {
+        let hash: number = 7;
+        for (let i = 0; i < userName.length; i++) {
+            hash = userName.charCodeAt(i) + (hash << 5) - hash;
+        }
+
+        const index = Math.abs(hash % COLORS.length);
+        return COLORS[index];
+    };
+
+    const renderChatMessage = (data: ISocketMessage): ReactElement => (
+            <ChatMessage
+                key={data.id}
+                id={data.id}
+                userName={data.userData?.username}
+                userMessage={data.userData?.message}
+                userColor={getUserNameColor(data.userData?.username || '')}
+        />
+    );
+
+    const renderUserActivityInfo = (data: ISocketMessage, text: string = '') => (
+        <UserActivityInfo
+            key={data.id}
+            userName={data.userData?.username}
+            text={text}
+            userQuantity={data.userData?.numUsers}
+        />
+    );
 
     return (
         <div className="chat-messages-list">
@@ -14,15 +71,19 @@ const ChatMessagesList = (props: any): ReactElement => {
                     <div className="chat-messages-list__welcome-text">Welcome to Socket Chat 👋</div>
                 </div>
                 {
-                    messages.map((message: IChatMessage) => (
-                        <ChatMessage
-                            key={message.id}
-                            id={message.id}
-                            userName={message.userName}
-                            userMessage={message.userMessage}
+                    messages.map((message: ISocketMessage) => renderComponentByType(message))
+                }
+                <div className="chat-messages-list__typing-message">
+                {
+                    typingData.map((data: ISocketMessage) => (
+                        <TypingMessage
+                            key={data.id}
+                            text={`${data.userData?.username} typing...`}
+                            userColor={getUserNameColor(data.userData?.username || '')}
                         />
                     ))
                 }
+                </div>
             </div>
         </div>
     );

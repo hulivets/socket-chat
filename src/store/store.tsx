@@ -1,17 +1,24 @@
-import React, {createContext, useReducer} from 'react';
+import { Context } from 'node:vm';
+import React, { createContext, ReactElement, ReactNode, useReducer } from 'react';
 
-const initialState: any = { isLoggedIn: false, messages: [] };
-const store = createContext(initialState);
+interface IStateProviderProps {
+    children: ReactNode;
+};
+
+interface IState {
+    userName: string;
+};
+
+const initialState: IState = { userName: '' };
+const store = createContext<Context>(initialState);
 const { Provider } = store;
 
-const StateProvider = ({ children }: any) => {
-    const [state, dispatch] = useReducer((state: any, action: any) => {
+const StateProvider = (props: IStateProviderProps): ReactElement => {
+    const { children } = props;
+    const [state, dispatch] = useReducer((state: IState, action: any) => {
         switch (action.type) {
-            case 'LOG_IN':
-                state.isLoggedIn = action.payload;
-                return state;
-            case 'MESSAGE':
-                state.messages.push(action.payload);
+            case 'LOGIN':
+                state = { ...action.payload };
                 return state;
             default:
                 return state;

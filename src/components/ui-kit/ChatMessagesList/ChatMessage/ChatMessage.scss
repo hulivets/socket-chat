@@ -1,3 +1,5 @@
+@import '../../../../assets/styles/colors.scss';
+
 .chat-message {
     margin-bottom: 15px;
     display: flex;
@@ -6,22 +8,27 @@
     &__content {
         display: flex;
 
-        .chat-message__avatar {
-            margin-right: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: green;
-            font-size: 20px;
+        .chat-message__avatar-wrapper {
+            .chat-message__avatar {
+                margin-right: 15px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background-color: green;
+                font-size: 18px;
+                font-weight: bold;
+                color: $c_white;
+            }
         }
 
         .chat-message__user-content {
             display: flex;
             flex-direction: column;
-            width: 500px;
+            max-width: 600px;
+            overflow-wrap: break-word;
 
             .chat-message__user-name {
                 font-size: 18px;
@@ -29,7 +36,7 @@
             }
 
             .chat-message__user-message {
-                margin-top: 5px;
+                color: $c_white;
             }
         }
     }
