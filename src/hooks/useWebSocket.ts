@@ -6,9 +6,10 @@ import { store } from '../store/store';
 const useWebsocket = () => {
     const userData = useContext(store);
     const { dispatch } = userData;
+
     const login = async (userName: string, callback: Function) => {
         try {
-            const socket = await chatAPI.connect();
+            const socket: WebSocket = await chatAPI.connect();
             if (socket.readyState === WebSocket.OPEN) {
                 const message: string = SocketCommands.SEND + JSON.stringify([SocketHandlerNames.ADD_USER, userName]);
                 chatAPI.login(message);
@@ -19,7 +20,6 @@ const useWebsocket = () => {
             console.log(err);
         }
     };
-
 
     const sucbscribe = (callback: (message: string) => void): void => {
         chatAPI.sucbscribe(callback);
@@ -34,13 +34,9 @@ const useWebsocket = () => {
         chatAPI.sendMessage(newMessage);
     };
 
-    const sendTypingMessage = (userName: string): void => {
-        const newMessage: string = SocketCommands.SEND + JSON.stringify([SocketHandlerNames.TYPYNG, {username: userName}]);
-        chatAPI.sendMessage(newMessage);
-    };
-
-    const sendStopTypingMessage = (userName: string): void => {
-        const newMessage: string = SocketCommands.SEND + JSON.stringify([SocketHandlerNames.STOP_TYPING, {username: userName}]);
+    const sendTypingMessage = (userName: string, send: boolean): void => {
+        const messageName: string = send ? SocketHandlerNames.TYPYNG : SocketHandlerNames.STOP_TYPING;
+        const newMessage: string = SocketCommands.SEND + JSON.stringify([messageName, {username: userName}]);
         chatAPI.sendMessage(newMessage);
     };
 
@@ -55,7 +51,6 @@ const useWebsocket = () => {
         unsucbscribe,
         sendMessage,
         sendTypingMessage,
-        sendStopTypingMessage,
         logout,
     };
 };

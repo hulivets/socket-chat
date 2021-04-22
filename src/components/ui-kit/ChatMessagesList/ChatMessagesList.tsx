@@ -46,12 +46,12 @@ const ChatMessagesList = (props: IChatMessagesListProps): ReactElement => {
     };
 
     const renderChatMessage = (data: ISocketMessage): ReactElement => (
-            <ChatMessage
-                key={data.id}
-                id={data.id}
-                userName={data.userData?.username}
-                userMessage={data.userData?.message}
-                userColor={getUserNameColor(data.userData?.username || '')}
+        <ChatMessage
+            key={data.id}
+            id={data.id}
+            userName={data.userData?.username}
+            userMessage={data.userData?.message}
+            userColor={getUserNameColor(data.userData?.username || '')}
         />
     );
 

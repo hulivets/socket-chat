@@ -25,31 +25,8 @@ const ChatRoomPage = (): ReactElement => {
         unsucbscribe,
         sendMessage,
         sendTypingMessage,
-        sendStopTypingMessage,
         logout,
     } = useWebsocket();
-
-    const handleSubmit = (message: string): void => {
-        if (message) {
-            const user: ISocketMessage = createUserSentMessageData(SocketHandlerNames.NEW_MESSAGE, contextState.userName, message);
-
-            sendMessage(message);
-            setMessagesData((state: Array<ISocketMessage>) => [...state, user]);
-        };
-    };
-
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
-        sendTypingMessage(contextState.userName);
-    };
-
-    const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>): void => {
-        sendStopTypingMessage(contextState.userName);
-    };
-
-    const handleLogOut = () => {
-        history.push(PathNames.LOGIN);
-        logout();
-    }
 
     const messagesHandler = (message: string): void => {
         const data: ISocketMessage = parseSocketMessage(message);
@@ -67,6 +44,22 @@ const ChatRoomPage = (): ReactElement => {
         }
     };
 
+    const handleSubmit = (message: string): void => {
+        if (message) {
+            const user: ISocketMessage = createUserSentMessageData(SocketHandlerNames.NEW_MESSAGE, contextState.userName, message);
+
+            sendMessage(message);
+            setMessagesData((state: Array<ISocketMessage>) => [...state, user]);
+        };
+    };
+
+    const handleTyping = (send: boolean) => sendTypingMessage(contextState.userName, send);
+
+    const handleLogOut = () => {
+        history.push(PathNames.LOGIN);
+        logout();
+    }
+
     useEffect(() => {
         if (!contextState.isLogged) {
             history.push(PathNames.LOGIN);
@@ -74,6 +67,7 @@ const ChatRoomPage = (): ReactElement => {
         }
 
         sucbscribe(messagesHandler);
+
         return () => unsucbscribe(messagesHandler);
     });
 
@@ -84,8 +78,7 @@ const ChatRoomPage = (): ReactElement => {
                 <ChatMessagesList messages={messagesData} typingData={typingData}/>
                 <SubmitChatMessageForm
                     onSubmit={handleSubmit}
-                    onKeyDown={handleKeyDown}
-                    onKeyUp={handleKeyUp}
+                    sendTyping={handleTyping}
                 />
             </div>
         </div>

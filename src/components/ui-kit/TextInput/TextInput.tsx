@@ -6,9 +6,7 @@ interface ITextInputProps {
     name: string;
     value: string;
     placeholder: string;
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void | null;
-    onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-    onKeyUp?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void | null;
 }
 
 const TextInput = (props: ITextInputProps): ReactElement=> {
@@ -17,14 +15,14 @@ const TextInput = (props: ITextInputProps): ReactElement=> {
         value,
         placeholder,
         onChange,
-        onKeyDown,
-        onKeyUp,
     } = props;
+
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
         inputRef.current?.focus();
     });
+    
 
     return (
         <div className="text-input">
@@ -36,8 +34,6 @@ const TextInput = (props: ITextInputProps): ReactElement=> {
                 autoComplete="off"
                 placeholder={placeholder}
                 onChange={onChange}
-                onKeyDown={onKeyDown}
-                onKeyUp={onKeyUp}
             />
         </div>
     )

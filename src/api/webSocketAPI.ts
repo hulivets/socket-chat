@@ -8,10 +8,6 @@ let socket: WebSocket;
 let subscribers = [] as Array<(message: string) => void>;
 let updateInterval: NodeJS.Timeout;
 
-const closeHandler = (): void => {
-    console.log('WEB SOCKET CHANNEL CLOSED');
-};
-
 const messageHandler = (e: MessageEvent): void => {
     const message = (e?.data || '');
     subscribers.forEach((cb: Function) => cb(message));
@@ -19,7 +15,7 @@ const messageHandler = (e: MessageEvent): void => {
 
 export const chatAPI: IChatApi = {
     connect(): Promise<WebSocket> {
-        this.closeConnection();
+        if (socket) this.closeConnection();
         return new Promise((resolve, reject) => {
             socket = new WebSocket(URL);
             socket.onopen = () => {
@@ -37,7 +33,6 @@ export const chatAPI: IChatApi = {
     login(message: string): void {
         socket?.send(message);
         socket.addEventListener('message', messageHandler);
-        socket.addEventListener('close', closeHandler);
     },
     sucbscribe(callback: (message: string) => void): void {
         subscribers.push(callback);
@@ -50,8 +45,8 @@ export const chatAPI: IChatApi = {
     },
     closeConnection():void {
         if (updateInterval) clearInterval(updateInterval);
-        socket?.removeEventListener('close', closeHandler);
         socket?.removeEventListener('message', messageHandler);
         socket?.close();
+        console.log('WEB SOCKET CHANNEL CLOSED');
     },
 };
