@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import ChatMessage from './ChatMessage';
 import UserActivityInfo from './UserActivityInfo';
 import { SocketHandlerNames } from '../../../contstants/socketCommands';
-import { COLORS } from '../../../contstants/colors';
+import { getUserNameColor } from '../../../utils/userColor';
 import { ISocketMessage } from '../../../interfaces/ISocketMessages';
 
 import './ChatMessagesList.scss';
@@ -15,6 +15,8 @@ interface IChatMessagesListProps {
 
 const ChatMessagesList = (props: IChatMessagesListProps): ReactElement => {
     const { messages, typingData } = props;
+
+    const memoizedGetUserColor = getUserNameColor();
 
     const renderComponentByType = (data: ISocketMessage) => {
         let userActivityText: string;
@@ -35,23 +37,13 @@ const ChatMessagesList = (props: IChatMessagesListProps): ReactElement => {
         }
     };
 
-    const getUserNameColor = (userName: string): string => {
-        let hash: number = 7;
-        for (let i = 0; i < userName.length; i++) {
-            hash = userName.charCodeAt(i) + (hash << 5) - hash;
-        }
-
-        const index = Math.abs(hash % COLORS.length);
-        return COLORS[index];
-    };
-
     const renderChatMessage = (data: ISocketMessage): ReactElement => (
         <ChatMessage
             key={data.id}
             id={data.id}
             userName={data.userData?.username}
             userMessage={data.userData?.message}
-            userColor={getUserNameColor(data.userData?.username || '')}
+            userColor={memoizedGetUserColor(data.userData?.username || '')}
         />
     );
 
@@ -79,7 +71,7 @@ const ChatMessagesList = (props: IChatMessagesListProps): ReactElement => {
                         <TypingMessage
                             key={data.id}
                             text={`${data.userData?.username} typing...`}
-                            userColor={getUserNameColor(data.userData?.username || '')}
+                            userColor={memoizedGetUserColor(data.userData?.username || '')}
                         />
                     ))
                 }

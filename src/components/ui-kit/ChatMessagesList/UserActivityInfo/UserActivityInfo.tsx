@@ -31,4 +31,6 @@ UserActivityInfo.defaultProps = {
     userQuantity: 0,
 };
 
-export default UserActivityInfo;
+const MemoizedUserActivityInfo = React.memo(UserActivityInfo);
+
+export default MemoizedUserActivityInfo;

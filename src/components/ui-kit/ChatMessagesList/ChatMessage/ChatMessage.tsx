@@ -42,4 +42,6 @@ ChatMessage.defaultProps = {
     userColor: '#CCCCCC',
 };
 
-export default ChatMessage;
+const MemoizedChatMessage = React.memo(ChatMessage);
+
+export default MemoizedChatMessage;

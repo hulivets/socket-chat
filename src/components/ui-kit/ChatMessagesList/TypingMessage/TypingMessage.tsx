@@ -26,4 +26,6 @@ TypingMessage.defaultProps = {
     userColor: '#CCCCCC',
 };
 
-export default TypingMessage;
+const MemoizedTypingMessage = React.memo(TypingMessage);
+
+export default MemoizedTypingMessage;
