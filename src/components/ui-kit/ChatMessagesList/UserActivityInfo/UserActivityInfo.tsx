@@ -18,7 +18,7 @@ const UserActivityInfo = (props: IUserActivityInfoProps): React.ReactElement => 
                     { (userName && text) && <span>{userName} {text}</span>}
                 </div>
                 <div className="user-activity-info__user-quantity">
-                    <span>There are {userQuantity} participants</span>
+                    <span>participants online: {userQuantity}</span>
                 </div>
             </div>
         </div>

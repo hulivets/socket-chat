@@ -32,7 +32,7 @@ const LoginForm = (): ReactElement => {
                     <TextInput name="userName" placeholder="Name" value={userData.userName} onChange={handleChange}/>
                 </div>
                 <div className="login-form__field-wrapper">
-                    <Button text="Login" type="submit" onClick={handleSubmit}/>
+                    <Button text="Join" type="submit" onClick={handleSubmit}/>
                 </div>
             </form>
         </div>
