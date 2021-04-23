@@ -5,12 +5,17 @@ const UPDATE_COMMAND: string = '2';
 const TIME = 20000;
 
 let socket: WebSocket;
-let subscribers = [] as Array<(message: string) => void>;
+let subscribersOnMessage = [] as Array<(message: string) => void>;
+let subscribersOnClose = [] as Array<(e: CloseEvent) => void>;
 let updateInterval: NodeJS.Timeout;
 
 const messageHandler = (e: MessageEvent): void => {
     const message = (e?.data || '');
-    subscribers.forEach((cb: Function) => cb(message));
+    subscribersOnMessage.forEach((cb: Function) => cb(message));
+};
+
+const closeHandler = (e: CloseEvent): void => {
+    subscribersOnClose.forEach((cb: Function) => cb(e));
 };
 
 export const chatAPI: IChatApi = {
@@ -23,25 +28,30 @@ export const chatAPI: IChatApi = {
                 updateInterval = setInterval(() => socket.send(UPDATE_COMMAND), TIME)
                 console.log('WEB SOCKET CHANNEL CONNECTED');
             }
-
+            socket.addEventListener('close', closeHandler);
             socket.onerror = () => {
                 reject(socket);
             }
-            
         });
     },
     login(message: string): void {
         socket?.send(message);
         socket.addEventListener('message', messageHandler);
     },
-    sucbscribe(callback: (message: string) => void): void {
-        subscribers.push(callback);
+    sucbscribeOnMessage(callback: (message: string) => void): void {
+        subscribersOnMessage.push(callback);
     },
-    unSubscribe(callback: (message: string) => void): void {
-        subscribers = subscribers.filter(cb => cb !== callback);
+    unSubscribeOnMessage(callback: (message: string) => void): void {
+        subscribersOnMessage = subscribersOnMessage.filter(cb => cb !== callback);
     },
     sendMessage(message: string) {
         socket?.send(message);
+    },
+    subscribeOnClose(callback: (e: CloseEvent) => void): void {
+        subscribersOnClose.push(callback);
+    },
+    unSubscribeOnClose(callback: (e: CloseEvent) => void): void {
+        subscribersOnClose = subscribersOnClose.filter(cb => cb !== callback);
     },
     closeConnection():void {
         if (updateInterval) clearInterval(updateInterval);

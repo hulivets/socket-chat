@@ -21,8 +21,10 @@ const ChatRoomPage = (): ReactElement => {
     const history = useHistory();
  
     const {
-        sucbscribe,
-        unsucbscribe,
+        sucbscribeOnMessge,
+        unsucbscribeOnMessge,
+        sucbscribeOnClose,
+        unSucbscribeOnClose,
         sendMessage,
         sendTypingMessage,
         logout,
@@ -66,9 +68,14 @@ const ChatRoomPage = (): ReactElement => {
             return;
         }
 
-        sucbscribe(messagesHandler);
+        sucbscribeOnMessge(messagesHandler);
+        sucbscribeOnClose(handleLogOut)
 
-        return () => unsucbscribe(messagesHandler);
+
+        return () => {
+            unsucbscribeOnMessge(messagesHandler);
+            unSucbscribeOnClose(handleLogOut);
+        }
     });
 
     return (

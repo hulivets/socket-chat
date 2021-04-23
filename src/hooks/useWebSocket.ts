@@ -21,12 +21,20 @@ const useWebsocket = () => {
         }
     };
 
-    const sucbscribe = (callback: (message: string) => void): void => {
-        chatAPI.sucbscribe(callback);
+    const sucbscribeOnMessge = (callback: (message: string) => void): void => {
+        chatAPI.sucbscribeOnMessage(callback);
     };
 
-    const unsucbscribe = (callback: (message: string) => void): void => {
-        chatAPI.unSubscribe(callback);
+    const unsucbscribeOnMessge = (callback: (message: string) => void): void => {
+        chatAPI.unSubscribeOnMessage(callback);
+    };
+
+    const sucbscribeOnClose = (callback: (e: CloseEvent) => void): void => {
+        chatAPI.subscribeOnClose(callback);
+    };
+
+    const unSucbscribeOnClose = (callback: (e: CloseEvent) => void): void => {
+        chatAPI.unSubscribeOnClose(callback);
     };
 
     const sendMessage = (message: string): void => {
@@ -47,8 +55,10 @@ const useWebsocket = () => {
 
     return {
         login,
-        sucbscribe,
-        unsucbscribe,
+        sucbscribeOnMessge,
+        unsucbscribeOnMessge,
+        sucbscribeOnClose,
+        unSucbscribeOnClose,
         sendMessage,
         sendTypingMessage,
         logout,
