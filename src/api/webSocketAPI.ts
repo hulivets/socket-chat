@@ -56,6 +56,7 @@ export const chatAPI: IChatApi = {
     closeConnection():void {
         if (updateInterval) clearInterval(updateInterval);
         socket?.removeEventListener('message', messageHandler);
+        socket?.removeEventListener('close', closeHandler);
         socket?.close();
         console.log('WEB SOCKET CHANNEL CLOSED');
     },
