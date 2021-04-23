@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/hulivets.github.io/socket-chat/static/css/main.d44eb9cd.chunk.css",
-    "main.js": "/hulivets.github.io/socket-chat/static/js/main.cf382240.chunk.js",
-    "main.js.map": "/hulivets.github.io/socket-chat/static/js/main.cf382240.chunk.js.map",
+    "main.js": "/hulivets.github.io/socket-chat/static/js/main.ee9c327c.chunk.js",
+    "main.js.map": "/hulivets.github.io/socket-chat/static/js/main.ee9c327c.chunk.js.map",
     "runtime-main.js": "/hulivets.github.io/socket-chat/static/js/runtime-main.d5738778.js",
     "runtime-main.js.map": "/hulivets.github.io/socket-chat/static/js/runtime-main.d5738778.js.map",
-    "static/js/2.3a8820ff.chunk.js": "/hulivets.github.io/socket-chat/static/js/2.3a8820ff.chunk.js",
-    "static/js/2.3a8820ff.chunk.js.map": "/hulivets.github.io/socket-chat/static/js/2.3a8820ff.chunk.js.map",
+    "static/js/2.22f4a352.chunk.js": "/hulivets.github.io/socket-chat/static/js/2.22f4a352.chunk.js",
+    "static/js/2.22f4a352.chunk.js.map": "/hulivets.github.io/socket-chat/static/js/2.22f4a352.chunk.js.map",
     "static/js/3.0b626041.chunk.js": "/hulivets.github.io/socket-chat/static/js/3.0b626041.chunk.js",
     "static/js/3.0b626041.chunk.js.map": "/hulivets.github.io/socket-chat/static/js/3.0b626041.chunk.js.map",
     "index.html": "/hulivets.github.io/socket-chat/index.html",
     "static/css/main.d44eb9cd.chunk.css.map": "/hulivets.github.io/socket-chat/static/css/main.d44eb9cd.chunk.css.map",
-    "static/js/2.3a8820ff.chunk.js.LICENSE.txt": "/hulivets.github.io/socket-chat/static/js/2.3a8820ff.chunk.js.LICENSE.txt",
+    "static/js/2.22f4a352.chunk.js.LICENSE.txt": "/hulivets.github.io/socket-chat/static/js/2.22f4a352.chunk.js.LICENSE.txt",
     "static/media/Header.scss": "/hulivets.github.io/socket-chat/static/media/log-out.a0b7cbec.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.d5738778.js",
-    "static/js/2.3a8820ff.chunk.js",
+    "static/js/2.22f4a352.chunk.js",
     "static/css/main.d44eb9cd.chunk.css",
-    "static/js/main.cf382240.chunk.js"
+    "static/js/main.ee9c327c.chunk.js"
   ]
 }
